@@ -6,9 +6,9 @@ namespace AppSettingsLoader.OldConfiguration
     {
         private const string DefaultFilename = "web.config";
 
-        public AppSettingsConfigurationSource(string filePath = DefaultFilename)
+        public AppSettingsConfigurationSource(string filePath)
         {
-            Path = filePath;
+            Path = filePath ?? DefaultFilename;
             FileProvider = null;
             Optional = true;
             ReloadOnChange = true;

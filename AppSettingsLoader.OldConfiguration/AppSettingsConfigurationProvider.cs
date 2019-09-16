@@ -18,16 +18,19 @@ namespace AppSettingsLoader.OldConfiguration
         {
             try
             {
-                XmlDocument document = new XmlDocument();
-                document.Load(stream);
-
-                var result = new Dictionary<string, string>();
-                foreach (XmlNode node in document.SelectNodes(DefaultXmlPath))
+                if (stream?.Length > 0)
                 {
-                    result[node.Attributes["key"].Value] = node.Attributes["value"].Value;
-                }
+                    XmlDocument document = new XmlDocument();
+                    document.Load(stream);
 
-                Data = result;
+                    var result = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    foreach (XmlNode node in document.SelectNodes(DefaultXmlPath))
+                    {
+                        result[node.Attributes["key"].Value] = node.Attributes["value"].Value;
+                    }
+
+                    Data = result;
+                }
             }
             catch
             {
